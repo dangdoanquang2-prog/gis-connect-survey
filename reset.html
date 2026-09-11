@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head><title>Cache Reset</title></head>
+<body style="font-family:sans-serif;text-align:center;padding:60px">
+<h2>🔄 Đang xóa cache cũ...</h2>
+<p id="status">Vui lòng chờ...</p>
+<script>
+async function purge() {
+  const el = document.getElementById('status');
+  try {
+    // 1. Unregister ALL service workers
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      for (const r of regs) {
+        await r.unregister();
+      }
+      el.textContent = 'Đã gỡ ' + regs.length + ' Service Worker cũ...';
+    }
+    // 2. Clear ALL caches
+    if ('caches' in window) {
+      const names = await caches.keys();
+      for (const name of names) {
+        await caches.delete(name);
+      }
+    }
+    // 3. Clear localStorage version flag to force re-inject
+    localStorage.removeItem('formsmobile_cache_purged_v51');
+    
+    el.textContent = '✅ Xóa cache thành công! Đang chuyển hướng...';
+    // 4. Redirect to main app with cache-busting
+    setTimeout(() => {
+      window.location.href = '/index.html?' + Date.now();
+    }, 1000);
+  } catch(e) {
+    el.textContent = '❌ Lỗi: ' + e.message;
+  }
+}
+purge();
+</script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+Total Paragraphs: 18
+Total Tables: 9
+
+=== TABLE 1 (6 rows, 2 cols) ===
+Row 1: Mã khảo sát* | ________________ Mã điều tra viên*: __________ Mã điểm lấy mẫu/điểm dừng*: __________
+Row 2: Ngày / loại ngày* | ____/____/20____ □ Ngày thường □ Thứ Bảy □ Chủ nhật/Ngày lễ
+Row 3: Tuyến / Hướng* | Tuyến: ________ Hướng: ________ Mã LineRoute: __________
+Row 4: Chuyến xe* | Mã Vehicle Journey/chuyến: __________ Mã phương tiện/biển số: __________
+Row 5: Mốc thời gian* | Giờ kế hoạch tại điểm khảo sát: ____:____ Giờ đến thực tế: ____:____ Giờ phỏng vấn: ____:____
+Row 6: Vai trò bộ dữ liệu | □ Ước lượng nhu cầu/RP □ Kiểm định O–D PTCC □ Khác: __________
+
+=== TABLE 2 (5 rows, 2 cols) ===
+Row 1: 1. Điểm đi thực tế* | Địa điểm/địa chỉ: ______________________________________ Phường/xã: __________ Quận/huyện cũ: ______ O_TAZ: ____
+Row 2: 2. Điểm đến thực tế* | Địa điểm/địa chỉ: ______________________________________ Phường/xã: __________ Quận/huyện cũ: ______ D_TAZ: ____
+Row 3: 3. Tọa độ GPS (nếu có) | Điểm đi: __________, __________ Điểm đến: __________, __________
+Row 4: 4. Mục đích chuyến đi* | □ Đi làm □ Đi học □ Công việc □ Mua sắm □ Đưa/đón □ Giải trí/ăn uống □ Khám chữa bệnh □ Về nhà □ Khác
+Row 5: 5. Thời gian khởi hành toàn hành trình* | ____:____ Giờ đến dự kiến/thực tế: ____:____ Tổng thời gian toàn hành trình: ____ phút
+
+=== TABLE 3 (10 rows, 11 cols) ===
+Row 1: 6. Tiếp cận điểm dừng PTCC đầu tiên* | 6. Tiếp cận điểm dừng PTCC đầu tiên* | 6. Tiếp cận điểm dừng PTCC đầu tiên* | 6. Tiếp cận điểm dừng PTCC đầu tiên* | Phương thức: __________ Thời gian: ____ phút Khoảng cách: ____ m Mã/tên điểm lên đầu tiên: __________________ | Phương thức: __________ Thời gian: ____ phút Khoảng cách: ____ m Mã/tên điểm lên đầu tiên: __________________ | Phương thức: __________ Thời gian: ____ phút Khoảng cách: ____ m Mã/tên điểm lên đầu tiên: __________________ | Phương thức: __________ Thời gian: ____ phút Khoảng cách: ____ m Mã/tên điểm lên đầu tiên: __________________ | Phương thức: __________ Thời gian: ____ phút Khoảng cách: ____ m Mã/tên điểm lên đầu tiên: __________________ | Phương thức: __________ Thời gian: ____ phút Khoảng cách: ____ m Mã/tên điểm lên đầu tiên: __________________
+Row 2: 7. Thời gian chờ ban đầu* | 7. Thời gian chờ ban đầu* | 7. Thời gian chờ ban đầu* | 7. Thời gian chờ ban đầu* | ____ min | ____ min | ____ min | ____ min | ____ min | ____ min
+Row 3: Chặng | Chặng | Tuyến | Hướng/LineRoute | Mã/tên điểm lên | Giờ lên xe | Mã/tên điểm xuống | Giờ xuống xe | Phút trên xe | Giá vé (VND)
+Row 4: 1 | 1 |  |  |  |  |  |  |  | 
+Row 5: 2 | 2 |  |  |  |  |  |  |  | 
+Row 6: 3 | 3 |  |  |  |  |  |  |  | 
+Row 7: 8. Chuyển tuyến* | 8. Chuyển tuyến* | 8. Chuyển tuyến* | 8. Chuyển tuyến* | Số lần: ____ Thời gian chờ chuyển tuyến: Chặng 1→2 ____ phút Chặng 2→3 ____ phút Khác ____ phút | Số lần: ____ Thời gian chờ chuyển tuyến: Chặng 1→2 ____ phút Chặng 2→3 ____ phút Khác ____ phút | Số lần: ____ Thời gian chờ chuyển tuyến: Chặng 1→2 ____ phút Chặng 2→3 ____ phút Khác ____ phút | Số lần: ____ Thời gian chờ chuyển tuyến: Chặng 1→2 ____ phút Chặng 2→3 ____ phút Khác ____ phút | Số lần: ____ Thời gian chờ chuyển tuyến: Chặng 1→2 ____ phút Chặng 2→3 ____ phút Khác ____ phút | Số lần: ____ Thời gian chờ chuyển tuyến: Chặng 1→2 ____ phút Chặng 2→3 ____ phút Khác ____ phút
+Row 8: 9. Rời điểm dừng PTCC cuối cùng* | 9. Rời điểm dừng PTCC cuối cùng* | 9. Rời điểm dừng PTCC cuối cùng* | 9. Rời điểm dừng PTCC cuối cùng* | Phương thức: __________ Thời gian: ____ phút Khoảng cách: ____ m | Phương thức: __________ Thời gian: ____ phút Khoảng cách: ____ m | Phương thức: __________ Thời gian: ____ phút Khoảng cách: ____ m | Phương thức: __________ Thời gian: ____ phút Khoảng cách: ____ m | Phương thức: __________ Thời gian: ____ phút Khoảng cách: ____ m | Phương thức: __________ Thời gian: ____ phút Khoảng cách: ____ m
+Row 9: 10. Tổng chi phí chuyến đi PTCC* | 10. Tổng chi phí chuyến đi PTCC* | 10. Tổng chi phí chuyến đi PTCC* | 10. Tổng chi phí chuyến đi PTCC* | Giá vé: ______ VND Tiếp cận/rời PTCC: ______ Khác: ______ TỔNG: ______ VND | Giá vé: ______ VND Tiếp cận/rời PTCC: ______ Khác: ______ TỔNG: ______ VND | Giá vé: ______ VND Tiếp cận/rời PTCC: ______ Khác: ______ TỔNG: ______ VND | Giá vé: ______ VND Tiếp cận/rời PTCC: ______ Khác: ______ TỔNG: ______ VND | Giá vé: ______ VND Tiếp cận/rời PTCC: ______ Khác: ______ TỔNG: ______ VND | Giá vé: ______ VND Tiếp cận/rời PTCC: ______ Khác: ______ TỔNG: ______ VND
+Row 10: 11. Mức độ đông trên chặng khảo sát | 11. Mức độ đông trên chặng khảo sát | 11. Mức độ đông trên chặng khảo sát | 11. Mức độ đông trên chặng khảo sát | □ Có chỗ ngồi □ Đứng – ít đông □ Đứng – đông □ Rất đông | □ Có chỗ ngồi □ Đứng – ít đông □ Đứng – đông □ Rất đông | □ Có chỗ ngồi □ Đứng – ít đông □ Đứng – đông □ Rất đông | □ Có chỗ ngồi □ Đứng – ít đông □ Đứng – đông □ Rất đông | □ Có chỗ ngồi □ Đứng – ít đông □ Đứng – đông □ Rất đông | □ Có chỗ ngồi □ Đứng – ít đông □ Đứng – đông □ Rất đông
+
+=== TABLE 4 (6 rows, 2 cols) ===
+Row 1: 12. Phương thức có thể sử dụng cho chuyến đi này* | □ Ô tô □ Xe máy □ Xe buýt □ Metro nếu có □ Taxi/ô tô Grab □ Xe ôm/xe máy công nghệ □ Xe đạp □ Đi bộ
+Row 2: 13. Có ô tô để sử dụng? | □ Có □ Không
+Row 3: 14. Có xe máy để sử dụng? | □ Có □ Không
+Row 4: 15. Có vé tháng/thẻ PTCC? | □ Có □ Không
+Row 5: 16. Chi phí đỗ xe tại điểm đến | ______ VND □ Miễn phí □ Không biết/Không áp dụng
+Row 6: 17. Lý do chính chọn xe buýt | □ Thời gian □ Chi phí □ Không có phương tiện cá nhân □ Đỗ xe □ An toàn □ Thuận tiện □ Độ tin cậy □ Khác
+
+=== TABLE 5 (10 rows, 2 cols) ===
+Row 1: Thời gian đi lại toàn hành trình | □ 1 □ 2 □ 3 □ 4 □ 5
+Row 2: Độ tin cậy/đúng giờ | □ 1 □ 2 □ 3 □ 4 □ 5
+Row 3: Thời gian chờ | □ 1 □ 2 □ 3 □ 4 □ 5
+Row 4: Mức độ thoải mái | □ 1 □ 2 □ 3 □ 4 □ 5
+Row 5: Mức độ đông đúc | □ 1 □ 2 □ 3 □ 4 □ 5
+Row 6: Giá vé | □ 1 □ 2 □ 3 □ 4 □ 5
+Row 7: An toàn | □ 1 □ 2 □ 3 □ 4 □ 5
+Row 8: Khả năng tiếp cận điểm dừng | □ 1 □ 2 □ 3 □ 4 □ 5
+Row 9: Thông tin hành khách | □ 1 □ 2 □ 3 □ 4 □ 5
+Row 10: Vệ sinh | □ 1 □ 2 □ 3 □ 4 □ 5
+
+=== TABLE 6 (5 rows, 2 cols) ===
+Row 1: 18. Tần suất sử dụng PTCC | □ Lần đầu/hiếm khi □ Vài lần/năm □ Vài lần/tháng □ Vài lần/tuần □ Hằng ngày
+Row 2: 19. Thời gian đi bộ chấp nhận được đến điểm dừng/nhà ga | □ ≤3 min □ 4–5 □ 6–10 □ 11–15 □ >15
+Row 3: 20. Thời gian chờ/giãn cách chuyến chấp nhận được | □ ≤5 min □ 6–10 □ 11–15 □ 16–20 □ 21–30 □ >30
+Row 4: 21. Số lần chuyển tuyến chấp nhận được | □ 0 □ 1 □ 2 □ ≥3
+Row 5: 22. Hình thức thanh toán ưu tiên | □ Tiền mặt □ Thẻ PTCC □ QR/điện thoại □ Thẻ ngân hàng □ Vé do đơn vị sử dụng lao động cấp □ Khác
+
+=== TABLE 7 (2 rows, 2 cols) ===
+Row 1: Dưới mặt đất | Trên cao
+Row 2:  | 
+
+=== TABLE 8 (68 rows, 4 cols) ===
+Row 1: Phương tiện mà bạn sử dụng | Phương tiện mà bạn sử dụng |  | 
+Row 2: Thời gian (A) | Thời gian (A) | Phút | Phút
+Row 3: Chi phí(B) | Chi phí(B) | VND | VND
+Row 4: Bạn có nghĩ bạn sẽ chuyển từ phương tiện đang sử dụng hiện nay sang sử dụng Metro với thời gian và chi phí sau đây không? | Bạn có nghĩ bạn sẽ chuyển từ phương tiện đang sử dụng hiện nay sang sử dụng Metro với thời gian và chi phí sau đây không? | Bạn có nghĩ bạn sẽ chuyển từ phương tiện đang sử dụng hiện nay sang sử dụng Metro với thời gian và chi phí sau đây không? | Bạn có nghĩ bạn sẽ chuyển từ phương tiện đang sử dụng hiện nay sang sử dụng Metro với thời gian và chi phí sau đây không?
+Row 5: Chọn có hoặc không | Thời gian | Thời gian | Chi phí
+Row 6: 1. Có      2.Không | Thời gian (A) tăng thêm 15Phút | Thời gian (A) tăng thêm 15Phút | 7,000VND
+Row 7: 1. Có      2.Không | Thời gian (A) tăng thêm 10Phút | Thời gian (A) tăng thêm 10Phút | 7,000VND
+Row 8: 1. Có      2.Không | Thời gian (A) tăng thêm 5Phút | Thời gian (A) tăng thêm 5Phút | 7,000VND
+Row 9: 1. Có      2.Không | Thời gian (A) giảm đi 15Phút | Thời gian (A) giảm đi 15Phút | 7,000VND
+Row 10: 1. Có      2.Không | Thời gian (A) giảm đi 10Phút | Thời gian (A) giảm đi 10Phút | 7,000VND
+Row 11: 1. Có      2.Không | Thời gian (A) giảm đi 5Phút | Thời gian (A) giảm đi 5Phút | 7,000VND
+Row 12: 1. Có      2.Không | Thời gian như hiện nay (A) | Thời gian như hiện nay (A) | 7,000VND
+Row 13: 1. Có      2.Không | Thời gian (A) tăng thêm 15Phút | Thời gian (A) tăng thêm 15Phút | 9,000VND
+Row 14: 1. Có      2.Không | Thời gian (A) tăng thêm 10Phút | Thời gian (A) tăng thêm 10Phút | 9,000VND
+Row 15: 1. Có      2.Không | Thời gian (A) tăng thêm 5Phút | Thời gian (A) tăng thêm 5Phút | 9,000VND
+Row 16: 1. Có      2.Không | Thời gian (A) giảm đi 15Phút | Thời gian (A) giảm đi 15Phút | 9,000VND
+Row 17: 1. Có      2.Không | Thời gian (A) giảm đi 10Phút | Thời gian (A) giảm đi 10Phút | 9,000VND
+Row 18: 1. Có      2.Không | Thời gian (A) giảm đi 5Phút | Thời gian (A) giảm đi 5Phút | 9,000VND
+Row 19: 1. Có      2.Không | Thời gian như hiện nay (A) | Thời gian như hiện nay (A) | 9,000VND
+Row 20: 1. Có      2.Không | Thời gian (A) tăng thêm 15Phút | Thời gian (A) tăng thêm 15Phút | 10,000VND
+Row 21: 1. Có      2.Không | Thời gian (A) tăng thêm 10Phút | Thời gian (A) tăng thêm 10Phút | 10,000VND
+Row 22: 1. Có      2.Không | Thời gian (A) tăng thêm 5Phút | Thời gian (A) tăng thêm 5Phút | 10,000VND
+Row 23: 1. Có      2.Không | Thời gian (A) giảm đi 15Phút | Thời gian (A) giảm đi 15Phút | 10,000VND
+Row 24: 1. Có      2.Không | Thời gian (A) giảm đi 10Phút | Thời gian (A) giảm đi 10Phút | 10,000VND
+Row 25: 1. Có      2.Không | Thời gian (A) giảm đi 5Phút | Thời gian (A) giảm đi 5Phút | 10,000VND
+Row 26: 1. Có      2.Không | Thời gian như hiện nay (A) | Thời gian như hiện nay (A) | 10,000VND
+Row 27: 1. Có      2.Không | Thời gian (A) tăng thêm 15Phút | Thời gian (A) tăng thêm 15Phút | 12,000VND
+Row 28: 1. Có      2.Không | Thời gian (A) tăng thêm 10Phút | Thời gian (A) tăng thêm 10Phút | 12,000VND
+Row 29: 1. Có      2.Không | Thời gian (A) tăng thêm 5Phút | Thời gian (A) tăng thêm 5Phút | 12,000VND
+Row 30: 1. Có      2.Không | Thời gian (A) giảm đi 15Phút | Thời gian (A) giảm đi 15Phút | 12,000VND
+Row 31: 1. Có      2.Không | Thời gian (A) giảm đi 10Phút | Thời gian (A) giảm đi 10Phút | 12,000VND
+Row 32: 1. Có      2.Không | Thời gian (A) giảm đi 5Phút | Thời gian (A) giảm đi 5Phút | 12,000VND
+Row 33: 1. Có      2.Không | Thời gian như hiện nay (A) | Thời gian như hiện nay (A) | 12,000VND
+Row 34: 1. Có      2.Không | Thời gian (A) tăng thêm 15Phút | Thời gian (A) tăng thêm 15Phút | 14,000VND
+Row 35: 1. Có      2.Không | Thời gian (A) tăng thêm 10Phút | Thời gian (A) tăng thêm 10Phút | 14,000VND
+Row 36: 1. Có      2.Không | Thời gian (A) tăng thêm 5Phút | Thời gian (A) tăng thêm 5Phút | 14,000VND
+Row 37: 1. Có      2.Không | Thời gian (A) giảm đi 15Phút | Thời gian (A) giảm đi 15Phút | 14,000VND
+Row 38: 1. Có      2.Không | Thời gian (A) giảm đi 10Phút | Thời gian (A) giảm đi 10Phút | 14,000VND
+Row 39: 1. Có      2.Không | Thời gian (A) giảm đi 5Phút | Thời gian (A) giảm đi 5Phút | 14,000VND
+Row 40: 1. Có      2.Không | Thời gian như hiện nay (A) | Thời gian như hiện nay (A) | 14,000VND
+Row 41: 1. Có      2.Không | Thời gian (A) tăng thêm 15Phút | Thời gian (A) tăng thêm 15Phút | 16,000VND
+Row 42: 1. Có      2.Không | Thời gian (A) tăng thêm 10Phút | Thời gian (A) tăng thêm 10Phút | 16,000VND
+Row 43: 1. Có      2.Không | Thời gian (A) tăng thêm 5Phút | Thời gian (A) tăng thêm 5Phút | 16,000VND
+Row 44: 1. Có      2.Không | Thời gian (A) giảm đi 15Phút | Thời gian (A) giảm đi 15Phút | 16,000VND
+Row 45: 1. Có      2.Không | Thời gian (A) giảm đi 10Phút | Thời gian (A) giảm đi 10Phút | 16,000VND
+Row 46: 1. Có      2.Không | Thời gian (A) giảm đi 5Phút | Thời gian (A) giảm đi 5Phút | 16,000VND
+Row 47: 1. Có      2.Không | Thời gian như hiện nay (A) | Thời gian như hiện nay (A) | 16,000VND
+Row 48: 1. Có      2.Không | Thời gian (A) tăng thêm 15Phút | Thời gian (A) tăng thêm 15Phút | 18,000VND
+Row 49: 1. Có      2.Không | Thời gian (A) tăng thêm 10Phút | Thời gian (A) tăng thêm 10Phút | 18,000VND
+Row 50: 1. Có      2.Không | Thời gian (A) tăng thêm 5Phút | Thời gian (A) tăng thêm 5Phút | 18,000VND
+Row 51: 1. Có      2.Không | Thời gian (A) giảm đi 15Phút | Thời gian (A) giảm đi 15Phút | 18,000VND
+Row 52: 1. Có      2.Không | Thời gian (A) giảm đi 10Phút | Thời gian (A) giảm đi 10Phút | 18,000VND
+Row 53: 1. Có      2.Không | Thời gian (A) giảm đi 5Phút | Thời gian (A) giảm đi 5Phút | 18,000VND
+Row 54: 1. Có      2.Không | Thời gian như hiện nay (A) | Thời gian như hiện nay (A) | 18,000VND
+Row 55: 1. Có      2.Không | Thời gian (A) tăng thêm 15Phút | Thời gian (A) tăng thêm 15Phút | 20,000VND
+Row 56: 1. Có      2.Không | Thời gian (A) tăng thêm 10Phút | Thời gian (A) tăng thêm 10Phút | 20,000VND
+Row 57: 1. Có      2.Không | Thời gian (A) tăng thêm 5Phút | Thời gian (A) tăng thêm 5Phút | 20,000VND
+Row 58: 1. Có      2.Không | Thời gian (A) giảm đi 15Phút | Thời gian (A) giảm đi 15Phút | 20,000VND
+Row 59: 1. Có      2.Không | Thời gian (A) giảm đi 10Phút | Thời gian (A) giảm đi 10Phút | 20,000VND
+Row 60: 1. Có      2.Không | Thời gian (A) giảm đi 5Phút | Thời gian (A) giảm đi 5Phút | 20,000VND
+Row 61: 1. Có      2.Không | Thời gian như hiện nay (A) | Thời gian như hiện nay (A) | 20,000VND
+Row 62: 1. Có      2.Không | Thời gian (A) tăng thêm 15Phút | Thời gian (A) tăng thêm 15Phút | 25,000 VND
+Row 63: 1. Có      2.Không | Thời gian (A) tăng thêm 10Phút | Thời gian (A) tăng thêm 10Phút | 25,000 VND
+Row 64: 1. Có      2.Không | Thời gian (A) tăng thêm 5Phút | Thời gian (A) tăng thêm 5Phút | 25,000 VND
+Row 65: 1. Có      2.Không | Thời gian (A) giảm đi 15Phút | Thời gian (A) giảm đi 15Phút | 25,000 VND
+Row 66: 1. Có      2.Không | Thời gian (A) giảm đi 10Phút | Thời gian (A) giảm đi 10Phút | 25,000 VND
+Row 67: 1. Có      2.Không | Thời gian (A) giảm đi 5Phút | Thời gian (A) giảm đi 5Phút | 25,000 VND
+Row 68: 1. Có      2.Không | Thời gian như hiện nay (A) | Thời gian như hiện nay (A) | 25,000 VND
+
+=== TABLE 9 (10 rows, 2 cols) ===
+Row 1: 23. Tuổi* | □ <18 □ 18–22 □ 23–35 □ 36–50 □ 51–65 □ >65
+Row 2: 24. Giới tính* | □ Nam □ Nữ □ Khác/không trả lời
+Row 3: 25. Nghề nghiệp* | □ Quản lý □ Văn phòng/giáo viên □ Công nhân □ Kinh doanh □ Lái xe □ Dịch vụ □ Học sinh/SV □ Nội trợ/hưu trí □ Khác
+Row 4: 26. Thu nhập cá nhân/tháng | □ <3m □ 3–6m □ 6–10m □ 10–15m □ 15–30m □ 30–50m □ >50m □ Không trả lời
+Row 5: 27. Giấy phép lái xe | □ Xe máy □ Ô tô □ Cả hai □ Không có
+Row 6: 28. Nơi ở | Địa chỉ/phường/quận cũ: _________________________________ TAZ nơi ở: ____
+Row 7: 29. Nơi làm việc/học tập | Địa chỉ/phường/quận cũ: _________________________________ TAZ: ____
+Row 8: 30. Quy mô hộ | ____ người  Người đi làm: ____  Học sinh/SV: ____
+Row 9: 31. Phương tiện của hộ | Ô tô: ____ Xe máy: ____ Xe đạp/xe đạp điện: ____
+Row 10: 32. Chỗ đỗ ô tô tại nơi ở | □ Có □ Không □ NA
+
