@@ -9,7 +9,7 @@ from docx.oxml.ns import nsdecls
 def create_step1_2_docx():
     doc = docx.Document()
 
-    # Cấu hình Margins A4 chuẩn
+    # Cấu hình lề trang A4 chuẩn
     for section in doc.sections:
         section.top_margin = Inches(0.8)
         section.bottom_margin = Inches(0.8)
@@ -18,14 +18,19 @@ def create_step1_2_docx():
         section.page_width = Inches(8.27)
         section.page_height = Inches(11.69)
 
-    # Bảng màu kỹ thuật cao cấp
-    NAVY = RGBColor(0, 51, 102)        # #003366 - Tiêu đề chính
-    STEEL = RGBColor(41, 128, 185)     # #2980B9 - Tiêu đề phụ
-    CHARCOAL = RGBColor(45, 55, 72)    # Văn bản thông thường
-    MUTED = RGBColor(113, 128, 150)
-    HEX_HEADER_BG = "003366"
-    HEX_ROW_LIGHT = "F8FAFC"
-    HEX_CODE_BG = "F1F5F9"
+    # -------------------------------------------------------------
+    # BẢNG MÀU TONE NÂU - BE (WARM COFFEE & BEIGE PALETTE)
+    # -------------------------------------------------------------
+    BROWN_PRIMARY = RGBColor(74, 53, 37)     # #4A3525 - Nâu cà phê đậm (Tiêu đề chính)
+    BROWN_SECONDARY = RGBColor(122, 82, 48)  # #7A5230 - Nâu hổ phách / Caramel (Tiêu đề phụ)
+    TEXT_DARK = RGBColor(44, 37, 35)         # #2C2523 - Chữ xám nâu than (Dịu mắt, không đen gắt)
+    TEXT_MUTED = RGBColor(125, 115, 110)     # #7D736E - Chữ phụ chú
+    
+    HEX_HEADER_BG = "4A3525"                 # Nền tiêu đề bảng (Nâu đậm)
+    HEX_ROW_LIGHT = "FAF7F2"                 # Nền hàng chẵn (Be sáng mềm)
+    HEX_CALLOUT_BG = "F7F3ED"                # Nền hộp ghi chú (Be ấm)
+    HEX_CODE_BG = "F4EFE6"                   # Nền khối mã (Giấy ngà / Be nhạt)
+    HEX_BORDER = "D6CBBF"                    # Đường viền (Be xám nhạt)
 
     def set_cell_background(cell, hex_color):
         shading = parse_xml(f'<w:shd {nsdecls("w")} w:fill="{hex_color}"/>')
@@ -43,7 +48,7 @@ def create_step1_2_docx():
         )
         tcPr.append(tcMar)
 
-    def set_table_borders(table, color="D0D7DE", sz="4", val="single"):
+    def set_table_borders(table, color=HEX_BORDER, sz="4", val="single"):
         tblPr = table._tbl.tblPr
         borders = parse_xml(
             f'<w:tblBorders {nsdecls("w")}>'
@@ -64,9 +69,9 @@ def create_step1_2_docx():
         p.paragraph_format.keep_with_next = True
         run = p.add_run(text)
         run.font.name = 'Calibri'
-        run.font.size = Pt(13)
+        run.font.size = Pt(13.5)
         run.font.bold = True
-        run.font.color.rgb = NAVY
+        run.font.color.rgb = BROWN_PRIMARY
         return p
 
     def add_h2(text):
@@ -78,7 +83,7 @@ def create_step1_2_docx():
         run.font.name = 'Calibri'
         run.font.size = Pt(11.5)
         run.font.bold = True
-        run.font.color.rgb = STEEL
+        run.font.color.rgb = BROWN_SECONDARY
         return p
 
     def add_body(text, bold_prefix="", italic=False):
@@ -91,30 +96,40 @@ def create_step1_2_docx():
             r_bold.font.name = 'Calibri'
             r_bold.font.size = Pt(10)
             r_bold.font.bold = True
-            r_bold.font.color.rgb = CHARCOAL
+            r_bold.font.color.rgb = TEXT_DARK
         run = p.add_run(text)
         run.font.name = 'Calibri'
         run.font.size = Pt(10)
         run.font.italic = italic
-        run.font.color.rgb = CHARCOAL
+        run.font.color.rgb = TEXT_DARK
         return p
 
-    def add_bullet(text, bold_prefix="", level=0):
-        p = doc.add_paragraph(style='List Bullet')
+    # Gạch đầu dòng thanh lịch (thay thế chấm tròn)
+    def add_dash_item(text, bold_prefix="", level=0):
+        p = doc.add_paragraph()
         p.paragraph_format.space_before = Pt(1)
         p.paragraph_format.space_after = Pt(2)
         p.paragraph_format.line_spacing = 1.15
-        p.paragraph_format.left_indent = Inches(0.25 * (level + 1))
+        p.paragraph_format.left_indent = Inches(0.2 + 0.2 * level)
+        
+        # Dấu gạch đầu dòng
+        r_dash = p.add_run("–  ")
+        r_dash.font.name = 'Calibri'
+        r_dash.font.size = Pt(10)
+        r_dash.font.bold = True
+        r_dash.font.color.rgb = BROWN_SECONDARY
+
         if bold_prefix:
             r_bold = p.add_run(bold_prefix)
             r_bold.font.name = 'Calibri'
             r_bold.font.size = Pt(10)
             r_bold.font.bold = True
-            r_bold.font.color.rgb = CHARCOAL
+            r_bold.font.color.rgb = TEXT_DARK
+            
         run = p.add_run(text)
         run.font.name = 'Calibri'
         run.font.size = Pt(10)
-        run.font.color.rgb = CHARCOAL
+        run.font.color.rgb = TEXT_DARK
         return p
 
     def add_code_block(code_text):
@@ -127,10 +142,10 @@ def create_step1_2_docx():
         tcPr = cell._tc.get_or_add_tcPr()
         borders = parse_xml(
             f'<w:tcBorders {nsdecls("w")}>'
-            f'<w:top w:val="single" w:sz="4" w:space="0" w:color="CBD5E1"/>'
-            f'<w:left w:val="single" w:sz="18" w:space="0" w:color="003366"/>'
-            f'<w:bottom w:val="single" w:sz="4" w:space="0" w:color="CBD5E1"/>'
-            f'<w:right w:val="single" w:sz="4" w:space="0" w:color="CBD5E1"/>'
+            f'<w:top w:val="single" w:sz="4" w:space="0" w:color="{HEX_BORDER}"/>'
+            f'<w:left w:val="single" w:sz="18" w:space="0" w:color="{HEX_HEADER_BG}"/>'
+            f'<w:bottom w:val="single" w:sz="4" w:space="0" w:color="{HEX_BORDER}"/>'
+            f'<w:right w:val="single" w:sz="4" w:space="0" w:color="{HEX_BORDER}"/>'
             f'</w:tcBorders>'
         )
         tcPr.append(borders)
@@ -141,21 +156,21 @@ def create_step1_2_docx():
         r = p.add_run(code_text)
         r.font.name = 'Consolas'
         r.font.size = Pt(8.5)
-        r.font.color.rgb = RGBColor(30, 41, 59)
+        r.font.color.rgb = RGBColor(60, 45, 35)
         doc.add_paragraph().paragraph_format.space_after = Pt(2)
 
-    def add_callout(text, title="NGUYÊN TẮC KỸ THUẬT QUAN TRỌNG"):
+    def add_callout(text, title="ĐIỂM KỸ THUẬT LƯU Ý"):
         tbl = doc.add_table(rows=1, cols=1)
         tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
         cell = tbl.rows[0].cells[0]
-        set_cell_background(cell, "F0F4F8")
+        set_cell_background(cell, HEX_CALLOUT_BG)
         set_cell_margins(cell, top=100, bottom=100, left=160, right=140)
         
         tcPr = cell._tc.get_or_add_tcPr()
         borders = parse_xml(
             f'<w:tcBorders {nsdecls("w")}>'
             f'<w:top w:val="none"/>'
-            f'<w:left w:val="single" w:sz="20" w:space="0" w:color="003366"/>'
+            f'<w:left w:val="single" w:sz="20" w:space="0" w:color="{HEX_HEADER_BG}"/>'
             f'<w:bottom w:val="none"/>'
             f'<w:right w:val="none"/>'
             f'</w:tcBorders>'
@@ -165,75 +180,75 @@ def create_step1_2_docx():
         p = cell.paragraphs[0]
         p.paragraph_format.space_before = Pt(2)
         p.paragraph_format.space_after = Pt(2)
-        r_title = p.add_run(f"📌 {title}: ")
+        r_title = p.add_run(f"■ {title}: ")
         r_title.font.name = 'Calibri'
         r_title.font.size = Pt(10)
         r_title.font.bold = True
-        r_title.font.color.rgb = NAVY
+        r_title.font.color.rgb = BROWN_PRIMARY
         
         r_txt = p.add_run(text)
         r_txt.font.name = 'Calibri'
         r_txt.font.size = Pt(9.5)
-        r_txt.font.color.rgb = CHARCOAL
+        r_txt.font.color.rgb = TEXT_DARK
         doc.add_paragraph().paragraph_format.space_after = Pt(2)
 
     # -------------------------------------------------------------
-    # HEADER BLOCK
+    # HEADER BLOCK (TONE NÂU BE)
     # -------------------------------------------------------------
     p_top = doc.add_paragraph()
     p_top.paragraph_format.space_before = Pt(6)
     p_top.paragraph_format.space_after = Pt(2)
     p_top.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r_sub = p_top.add_run("DỰ ÁN KHẢO SÁT HIỆN TRƯỜNG & TỰ ĐỘNG HÓA BÁO CÁO (GIS CONNECT)\n")
+    r_sub = p_top.add_run("DỰ ÁN KHẢO SÁT HIỆN TRƯỜNG & TỰ ĐỘNG HÓA DỮ LIỆU BÁO CÁO (GIS CONNECT)\n")
     r_sub.font.name = 'Calibri'
-    r_sub.font.size = Pt(11)
+    r_sub.font.size = Pt(10.5)
     r_sub.font.bold = True
-    r_sub.font.color.rgb = STEEL
+    r_sub.font.color.rgb = BROWN_SECONDARY
 
     p_title = doc.add_paragraph()
     p_title.paragraph_format.space_before = Pt(2)
     p_title.paragraph_format.space_after = Pt(6)
     p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r_main = p_title.add_run("HƯỚNG DẪN KỸ THUẬT CHI TIẾT:\nCƠ CHẾ XỬ LÝ BƯỚC 1 (FORMAT DỮ LIỆU FORM)\nVÀ BƯỚC 2 (MÃ HÓA, NÉN ẢNH, WATERMARK TẠI MÁY KHÁCH)")
+    r_main = p_title.add_run("HƯỚNG DẪN KỸ THUẬT CHI TIẾT:\nCƠ CHẾ XỬ LÝ DỮ LIỆU BIỂU MẪU (BƯỚC 1)\nVÀ THUẬT TOÁN MÃ HÓA, NÉN ẢNH, WATERMARK TẠI MÁY KHÁCH (BƯỚC 2)")
     r_main.font.name = 'Calibri'
-    r_main.font.size = Pt(15)
+    r_main.font.size = Pt(14.5)
     r_main.font.bold = True
-    r_main.font.color.rgb = NAVY
+    r_main.font.color.rgb = BROWN_PRIMARY
 
     p_meta = doc.add_paragraph()
     p_meta.paragraph_format.space_before = Pt(2)
     p_meta.paragraph_format.space_after = Pt(14)
     p_meta.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r_meta = p_meta.add_run("Tài liệu đặc tả giải pháp kỹ thuật (Technical Specifications & Implementation Guide) — Tháng 09/2026")
+    r_meta = p_meta.add_run("Tài liệu đặc tả giải pháp kỹ thuật luồng dữ liệu đầu vào — Cập nhật Tháng 09/2026")
     r_meta.font.name = 'Calibri'
     r_meta.font.size = Pt(9.5)
     r_meta.font.italic = True
-    r_meta.font.color.rgb = MUTED
+    r_meta.font.color.rgb = TEXT_MUTED
 
     # -------------------------------------------------------------
-    # PHẦN I: MỤC TIÊU CỦA BƯỚC 1 & BƯỚC 2
+    # PHẦN I: MỤC TIÊU CỐT LÕI
     # -------------------------------------------------------------
-    add_h1("I. MỤC TIÊU KỸ THUẬT CỦA BƯỚC 1 & BƯỚC 2")
-    add_body("Toàn bộ sự thành bại của việc xuất báo cáo tự động và liên kết bản đồ GIS đều phụ thuộc 100% vào **khâu thu thập đầu vào (Bước 1 & Bước 2)**. Nếu đầu vào bị sai, ảnh đặt tên ngẫu nhiên hoặc file quá nặng làm nghẽn mạng thì toàn bộ các bước sau đều sụp đổ.")
+    add_h1("I. MỤC TIÊU KỸ THUẬT CỦA BƯỚC 1 VÀ BƯỚC 2")
+    add_body("Hiệu quả của việc tự động hóa báo cáo và đồng bộ dữ liệu GIS phụ thuộc trực tiếp vào tính chuẩn xác của khâu thu thập hiện trường (Bước 1 và Bước 2). Khi dữ liệu đầu vào được kiểm soát chặt chẽ ngay tại nguồn, các công đoạn tổng hợp và xử lý phía sau sẽ diễn ra hoàn toàn tự động:")
     
-    add_bullet("Biến biểu mẫu nhập liệu từ một form thông thường thành một form có cấu trúc chặt chẽ (Structured Schema). Khảo sát viên không cần gõ tay nhiều, giảm thiểu 95% sai sót con người.", "Mục tiêu Bước 1 (Format Biểu Mẫu): ")
-    add_bullet("Toàn bộ công tác xử lý ảnh (Đổi tên, Nén dung lượng, Đóng dấu Watermark tọa độ/thời gian) phải được thực thi trực tiếp trên trình duyệt điện thoại của khảo sát viên (Client-side) ngay khoảnh khắc chụp ảnh, trước khi gửi bất kỳ byte dữ liệu nào về máy chủ.", "Mục tiêu Bước 2 (Xử Lý Ảnh Máy Khách): ")
+    add_dash_item("Chuyển đổi hình thức nhập liệu từ các biểu mẫu tự do thành biểu mẫu có cấu trúc định sẵn. Khảo sát viên không cần nhập liệu thủ công nhiều, giúp hạn chế tối đa các sai sót phát sinh trong quá trình ghi nhận.", "Mục tiêu Bước 1 (Format dữ liệu): ")
+    add_dash_item("Mọi công đoạn xử lý hình ảnh bao gồm đổi tên, nén dung lượng và đóng dấu thông tin thực địa (tọa độ GPS, thời gian) đều được thực hiện trực tiếp trên trình duyệt thiết bị di động (Client-side) ngay khi chụp, trước khi truyền tải về máy chủ.", "Mục tiêu Bước 2 (Xử lý ảnh tại máy khách): ")
 
     # -------------------------------------------------------------
-    # PHẦN II: CHI TIẾT XỬ LÝ BƯỚC 1 - FORMAT DỮ LIỆU BIỂU MẪU
+    # PHẦN II: BƯỚC 1 - FORMAT DỮ LIỆU BIỂU MẪU
     # -------------------------------------------------------------
     add_h1("II. CHI TIẾT CƠ CHẾ XỬ LÝ BƯỚC 1: FORMAT BIỂU MẪU KHẢO SÁT")
 
-    add_h2("1. Chuẩn Hóa Danh Mục Nhà Ga (Master Data Binding)")
-    add_body("Thay vì để khảo sát viên tự gõ tên ga (rất dễ gõ sai chính tả như 'Phan van hon', 'S1_PVH', 'Ga s1' khiến máy tính không gom nhóm được), biểu mẫu sử dụng kỹ thuật liên kết dữ liệu danh mục:")
-    add_bullet("Tải danh mục 26 nhà ga từ file cơ sở dữ liệu stations_db.json vào bộ nhớ ứng dụng.", "Nạp danh mục: ")
-    add_bullet("Giao diện hiển thị Dropdown gồm [Mã Ga] - [Tên Ga] chuẩn mực. Ví dụ: S1 - Phan Văn Hớn, S2 - Đông Hưng Thuận, ..., S26 - Bến Thành.", "Giao diện chọn: ")
-    add_bullet("Khi khảo sát viên chọn một ga, hệ thống lập tức gán ngầm các biến hệ thống: station_id = 'S1', station_lat = 10.836067, station_lng = 106.618255. Đây chính là khóa ngoại (Foreign Key) để tự động ghép ảnh và liên kết bản đồ GIS.", "Khóa dữ liệu ngầm: ")
+    add_h2("1. Chuẩn Hóa Danh Mục Nhà Ga Bằng Cơ Chế Liên Kết Dữ Liệu Gốc")
+    add_body("Để tránh việc người khảo sát nhập tên trạm tùy tiện (ví dụ: viết tắt, sai lỗi chính tả khiến hệ thống không thể tự động tổng hợp), biểu mẫu áp dụng cơ chế nạp danh mục cố định:")
+    add_dash_item("Dữ liệu danh mục 26 nhà ga thuộc Tuyến Metro số 2 được tải trực tiếp từ tệp cơ sở dữ liệu 'stations_db.json' vào bộ nhớ của ứng dụng.", "Nạp danh mục trạm: ")
+    add_dash_item("Giao diện cung cấp danh sách dạng Dropdown gồm định dạng chuẩn [Mã Ga] - [Tên Ga]. Ví dụ: 'S1 - Phan Văn Hớn', 'S2 - Đông Hưng Thuận', ..., 'S26 - Bến Thành'.", "Hiển thị lựa chọn: ")
+    add_dash_item("Khi người khảo sát chọn trạm, hệ thống tự động gán ngầm các giá trị định danh gồm station_id = 'S1', station_lat = 10.836067, station_lng = 106.618255. Đây là trường khóa phục vụ ghép nối ảnh và liên kết không gian trên bản đồ GIS.", "Khóa liên kết ngầm: ")
 
-    add_h2("2. Cơ Chế Tự Động Bắt Tọa Độ Vệ Tinh (GPS Auto-Capture)")
-    add_body("Sử dụng chuẩn Geolocation API của HTML5 với độ chính xác cao nhất (High Accuracy):")
+    add_h2("2. Cơ Chế Tự Động Ghi Nhận Tọa Độ Vệ Tinh (GPS Auto-Capture)")
+    add_body("Ứng dụng sử dụng hàm định vị tiêu chuẩn của trình duyệt (HTML5 Geolocation API) với cấu hình ưu tiên độ chính xác cao:")
     add_code_block(
-        "// Cơ chế tự động bắt tọa độ khi mở form\n"
+        "// Ghi nhận tọa độ tự động khi mở biểu mẫu\n"
         "navigator.geolocation.getCurrentPosition(\n"
         "    (pos) => {\n"
         "        surveyRecord.device_lat = pos.coords.latitude;\n"
@@ -241,20 +256,20 @@ def create_step1_2_docx():
         "        surveyRecord.device_accuracy = pos.coords.accuracy; // Sai số tính bằng mét (±m)\n"
         "        surveyRecord.gps_captured_time = new Date().toISOString();\n"
         "    },\n"
-        "    (err) => console.warn('Lỗi bắt GPS:', err),\n"
+        "    (err) => console.warn('Lỗi định vị GPS:', err),\n"
         "    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }\n"
         ");"
     )
-    add_body("Khảo sát viên hoàn toàn không phải mở app bản đồ hay gõ tọa độ bằng tay. Hệ thống tự động ghi nhận và kiểm soát sai số vệ tinh.")
+    add_body("Khảo sát viên không cần thao tác kiểm tra tọa độ hay nhập số liệu thủ công. Hệ thống tự động ghi nhận vị trí thực tế kèm theo sai số đo đạc.")
 
-    add_h2("3. Cấu Trúc 6 Khung Chụp Ảnh Kỹ Thuật (Fixed Photo Slots)")
-    add_body("Trong biểu mẫu, 6 nút chụp ảnh được gán mã định danh bất biến (Slot Code) tương ứng với 6 góc chụp bắt buộc:")
+    add_h2("3. Thiết Lập 6 Khung Chụp Ảnh Kỹ Thuật Cố Định")
+    add_body("Trong biểu mẫu, 6 vị trí chụp ảnh được gán mã kỹ thuật cố định (Slot Code) tương ứng với các hạng mục khảo sát thực địa:")
 
     tbl_code_slots = doc.add_table(rows=7, cols=4)
     tbl_code_slots.alignment = WD_TABLE_ALIGNMENT.CENTER
     set_table_borders(tbl_code_slots)
 
-    slot_h = ["Mã Slot", "Tên Hiển Thị Trên Form", "Ràng Buộc Kỹ Thuật", "Ý Nghĩa Đối Chiếu Báo Cáo"]
+    slot_h = ["Mã Vị Trí", "Tên Hạng Mục Khảo Sát", "Tính Chất Bắt Buộc", "Mục Đích Sử Dụng Trong Báo Cáo"]
     for i, h in enumerate(slot_h):
         c = tbl_code_slots.rows[0].cells[i]
         c.text = h
@@ -266,12 +281,12 @@ def create_step1_2_docx():
         c.paragraphs[0].runs[0].font.color.rgb = RGBColor(255, 255, 255)
 
     slot_rows = [
-        ("A1", "Hiện trạng mặt bằng xây ga", "Bắt buộc (Required)", "Chèn vào Chương 1 của Báo cáo (Vị trí tim ga quy hoạch)"),
-        ("A2", "Vỉa hè & Lối tiếp cận đi bộ", "Bắt buộc (Required)", "Chèn vào Chương 2 (Đánh giá bề rộng và chất lượng vỉa hè)"),
-        ("A3", "Trạm dừng xe buýt kết nối", "Bắt buộc (Required)", "Chèn vào Chương 3 (Hiện trạng kết nối giao thông công cộng)"),
-        ("A4", "Bãi đỗ xe cá nhân (P&R)", "Tùy chọn (Optional)", "Chèn vào Chương 4 (Khu đất tiềm năng làm bãi giữ xe máy/ô tô)"),
-        ("A5", "Điểm đón trả khách (PUDO)", "Tùy chọn (Optional)", "Chèn vào Chương 4 (Vị trí vịnh dừng cho Taxi / Xe ôm công nghệ)"),
-        ("A6", "Chướng ngại vật & Rào cản", "Tùy chọn (Optional)", "Chèn vào Chương 5 (Cột điện, cây xanh, miệng cống, lấn chiếm)")
+        ("A1", "Hiện trạng mặt bằng vị trí ga", "Bắt buộc", "Chèn vào Chương 1 (Vị trí tim ga quy hoạch)"),
+        ("A2", "Vỉa hè và lối tiếp cận đi bộ", "Bắt buộc", "Chèn vào Chương 2 (Đánh giá bề rộng và chất lượng vỉa hè)"),
+        ("A3", "Trạm dừng xe buýt trung chuyển", "Bắt buộc", "Chèn vào Chương 3 (Hiện trạng kết nối vận tải công cộng)"),
+        ("A4", "Bãi đỗ xe cá nhân (Park & Ride)", "Tùy chọn", "Chèn vào Chương 4 (Khu đất có tiềm năng làm bãi đỗ xe)"),
+        ("A5", "Điểm đón trả khách nhanh (PUDO)", "Tùy chọn", "Chèn vào Chương 4 (Vị trí bố trí vịnh dừng đón/trả khách)"),
+        ("A6", "Chướng ngại vật và điểm lấn chiếm", "Tùy chọn", "Chèn vào Chương 5 (Cột điện, cây xanh lớn, điểm nghẽn giao thông)")
     ]
 
     for row_idx, r in enumerate(slot_rows, start=1):
@@ -287,55 +302,54 @@ def create_step1_2_docx():
             p.runs[0].font.size = Pt(9.5)
             if col_idx == 0:
                 p.runs[0].font.bold = True
-                p.runs[0].font.color.rgb = NAVY
+                p.runs[0].font.color.rgb = BROWN_PRIMARY
 
     doc.add_paragraph().paragraph_format.space_after = Pt(4)
 
     # -------------------------------------------------------------
-    # PHẦN III: CHI TIẾT XỬ LÝ BƯỚC 2 - MÃ HÓA, NÉN & WATERMARK
+    # PHẦN III: BƯỚC 2 - MÃ HÓA, NÉN & WATERMARK
     # -------------------------------------------------------------
-    add_h1("III. CHI TIẾT CƠ CHẾ XỬ LÝ BƯỚC 2: MÃ HÓA, NÉN ẢNH & WATERMARK")
-    add_body("Khi khảo sát viên chọn file hoặc chụp trực tiếp từ camera, sự kiện onchange kích hoạt hàm xử lý ảnh ngầm trên trình duyệt qua chuỗi 3 thuật toán liên tiếp:")
+    add_h1("III. CHI TIẾT CƠ CHẾ XỬ LÝ BƯỚC 2: MÃ HÓA, NÉN ẢNH VÀ WATERMARK")
+    add_body("Khi người dùng chụp ảnh hoặc tải tệp lên tại từng khung khảo sát, ứng dụng sẽ thực thi đồng thời ba thuật toán xử lý nội bộ:")
 
-    add_h2("1. Thuật Toán Tự Động Đổi Tên Ảnh (Auto-Naming Algorithm)")
-    add_body("Để triệt tiêu tình trạng file ảnh bị đặt tên vô nghĩa (như IMG_20260912_...jpg hoặc mã hash Zalo), hệ thống sinh tên file mới ngay tại bộ nhớ RAM:")
+    add_h2("1. Thuật Toán Tự Động Định Danh Tệp Ảnh (Auto-Naming Algorithm)")
+    add_body("Hệ thống loại bỏ tên ảnh mặc định của thiết bị (dạng 'IMG_2026.jpg' hoặc mã số ngẫu nhiên) và khởi tạo tên tệp theo quy chuẩn thống nhất:")
     add_code_block(
         "function generateCleanFileName(stationId, slotCode, timestamp) {\n"
-        "    // Chuyển timestamp về chuỗi YYYYMMDD_HHmmss\n"
+        "    // Chuyển đổi thời gian thành chuỗi YYYYMMDD_HHmmss\n"
         "    const dateStr = timestamp.toISOString().replace(/[-:T]/g, '').slice(0, 15);\n"
-        "    // Công thức bất biến: [MÃ_GA]_[MÃ_SLOT]_[TIMESTAMP].jpg\n"
+        "    // Quy chuẩn định danh: [Mã_Ga]_[Mã_Vị_Trí]_[Thời_Gian].jpg\n"
         "    return `${stationId}_${slotCode}_${dateStr}.jpg`;\n"
         "}\n"
-        "// Kết quả đầu ra chuẩn mực: S1_A1_20260912_143025.jpg"
+        "// Kết quả định danh chuẩn: S1_A1_20260912_143025.jpg"
     )
-    add_bullet("Tên file ngắn gọn, không dấu tiếng Việt, không chứa khoảng trắng hay ký tự đặc biệt.", "Quy tắc an toàn: ")
-    add_bullet("Khi nhìn vào tên file, cả con người và máy tính đều biết ngay bức ảnh này chụp tại Ga nào (S1), chụp hạng mục gì (A1) và chụp lúc nào.", "Tính tường minh: ")
+    add_dash_item("Tên tệp ngắn gọn, không sử dụng dấu tiếng Việt, không chứa khoảng trắng hay ký tự đặc biệt.", "Đặc tính quy chuẩn: ")
+    add_dash_item("Nhìn vào tên tệp có thể xác định chính xác ảnh thuộc nhà ga nào (S1), chụp hạng mục nào (A1) và thời điểm thực hiện.", "Khả năng nhận diện: ")
 
-    add_h2("2. Thuật Toán Nén Ảnh Tại Máy Khách (Client-Side Compression)")
-    add_body("Điện thoại thông minh hiện nay chụp ảnh có độ phân giải rất cao (từ 12MP đến 48MP, dung lượng 5MB – 12MB/ảnh). Nếu nộp cả 6 bức ảnh gốc qua mạng 4G, tổng dung lượng lên đến 40MB – 60MB, gây ra lỗi timeout hoặc đứng app.")
-    add_body("Giải pháp kỹ thuật sử dụng HTML5 Canvas để co kích thước và nén chất lượng:")
-    add_bullet("Giới hạn chiều dài nhất (Max Dimension) của bức ảnh là 1920px (chuẩn Full HD).", "Co tỷ lệ: ")
-    add_bullet("Tính toán tỷ lệ Aspect Ratio để ảnh không bao giờ bị méo hình (bảo toàn tỷ lệ gốc).", "Bảo toàn hình ảnh: ")
-    add_bullet("Xuất ảnh dưới định dạng image/jpeg với hệ số nén Quality = 0.82. Đây là 'điểm vàng' giữa chất lượng và dung lượng: mắt thường không phân biệt được với ảnh gốc, nhưng dung lượng giảm từ 8MB xuống chỉ còn 600KB - 800KB!", "Chất lượng tối ưu: ")
+    add_h2("2. Thuật Toán Tối Ưu Dung Lượng Ảnh Tại Thiết Bị (Client-Side Compression)")
+    add_body("Ảnh chụp trực tiếp từ điện thoại thông minh hiện nay có độ phân giải từ 12MP đến 48MP với dung lượng từ 5MB đến 12MB cho mỗi tệp. Việc gửi 6 ảnh nguyên bản qua mạng di động dễ gây hiện tượng chậm trễ hoặc lỗi kết nối:")
+    add_dash_item("Ảnh được điều chỉnh kích thước về cạnh dài tối đa 1920px (chuẩn Full HD) thông qua Canvas.", "Điều chỉnh kích thước: ")
+    add_dash_item("Tỷ lệ khung hình gốc (Aspect Ratio) được giữ nguyên để bảo đảm ảnh không bị méo mó.", "Bảo toàn tỷ lệ: ")
+    add_dash_item("Ảnh xuất ra định dạng JPEG với hệ số nén chất lượng 0.82. Mức này bảo toàn độ rõ nét của biển báo, hiện trạng mặt đường trong khi giảm dung lượng từ 8MB xuống khoảng 600KB – 800KB.", "Mức nén tối ưu: ")
 
-    add_h2("3. Thuật Toán Đóng Dấu Watermark Tọa Độ & Thời Gian (Proof Overlay)")
-    add_body("Để đảm bảo tính pháp lý và độ tin cậy của dữ liệu khảo sát (chứng minh khảo sát viên thực sự có mặt tại hiện trường đúng thời điểm), Canvas tự động vẽ một thanh băng đen mờ ở cạnh đáy bức ảnh:")
+    add_h2("3. Thuật Toán Đóng Dấu Thông Tin Thực Địa Lên Ảnh (Watermarking)")
+    add_body("Nhằm bảo đảm tính xác thực của dữ liệu khảo sát (xác nhận việc khảo sát được thực hiện tại hiện trường đúng thời điểm), ứng dụng tự động in dải thông tin định danh ở cạnh đáy bức ảnh:")
 
     add_code_block(
-        "// Thuật toán vẽ Watermark lên Canvas\n"
+        "// Thuật toán ghi thông tin Watermark lên Canvas\n"
         "const ctx = canvas.getContext('2d');\n"
         "\n"
-        "// 1. Vẽ dải băng đen mờ (Chiều cao 60px)\n"
+        "// 1. Tạo dải nền bán trong suốt ở đáy ảnh (chiều cao tương ứng 5% ảnh)\n"
         "const bannerHeight = Math.max(50, canvas.height * 0.05);\n"
         "ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';\n"
         "ctx.fillRect(0, canvas.height - bannerHeight, canvas.width, bannerHeight);\n"
         "\n"
-        "// 2. Định dạng chữ Watermark sắc nét\n"
+        "// 2. Thiết lập định dạng chữ hiển thị\n"
         "ctx.fillStyle = '#FFFFFF';\n"
         "ctx.font = `bold ${Math.round(bannerHeight * 0.32)}px Arial, sans-serif`;\n"
         "ctx.textBaseline = 'middle';\n"
         "\n"
-        "// 3. In thông tin định danh và tọa độ vệ tinh\n"
+        "// 3. Ghi thông tin trạm và tọa độ GPS thu nhận\n"
         "const line1 = `📍 ${stationName.toUpperCase()} | HẠNG MỤC: ${slotName}`;\n"
         "const line2 = `GPS: ${lat.toFixed(6)} N, ${lng.toFixed(6)} E (±${accuracy}m) | ${timeStr}`;\n"
         "\n"
@@ -343,22 +357,22 @@ def create_step1_2_docx():
         "ctx.fillText(line2, 20, canvas.height - bannerHeight * 0.25);"
     )
 
-    add_callout("Sau khi hoàn tất Bước 2, bức ảnh gốc nặng 8MB có tên 'IMG_2026.jpg' đã biến thành bức ảnh 'S1_A1_20260912_143025.jpg' nặng 700KB, trên góc ảnh in sẵn tọa độ GPS và thời gian. Toàn bộ quá trình này diễn ra trên máy khách trong đúng 0.3 giây mà không cần mạng Internet!", "HIỆU QUẢ CỦA BƯỚC 2")
+    add_callout("Sau khi xử lý qua Bước 2, tệp ảnh gốc dung lượng lớn được chuyển đổi thành tệp định danh chuẩn 'S1_A1_20260912_143025.jpg' dung lượng xấp xỉ 700KB, đồng thời in sẵn thông tin tọa độ và thời gian thực. Toàn bộ thao tác xử lý hoàn tất trong khoảng 0.3 giây ngay trên thiết bị mà không cần kết nối Internet.", "KẾT QUẢ XỬ LÝ BƯỚC 2")
 
     # -------------------------------------------------------------
-    # PHẦN IV: CƠ CHẾ ĐÓNG GÓI & CHẠY OFFLINE
+    # PHẦN IV: CƠ CHẾ LƯU TẠM NGOẠI TUYẾN
     # -------------------------------------------------------------
-    add_h1("IV. CƠ CHẾ ĐÓNG GÓI DỮ LIỆU & CHẠY OFFLINE KHI MẤT MẠNG")
-    add_body("Khi khảo sát viên khảo sát tại các vị trí không có sóng 4G (nhà ga ngầm, hầm chui), ứng dụng kích hoạt chế độ **Offline-First Resilience**:")
-    add_bullet("Phiếu khảo sát và toàn bộ chuỗi Base64 của 6 bức ảnh đã nén được lưu trữ trực tiếp vào IndexedDB của trình duyệt điện thoại.", "Lưu tạm trên máy: ")
-    add_bullet("Giao diện thông báo: 'Đã lưu cục bộ vào máy (Chờ kết nối mạng)'. Khảo sát viên tiếp tục di chuyển sang các ga khác khảo sát bình thường.", "Trải nghiệm không gián đoạn: ")
-    add_bullet("Khi điện thoại kết nối lại mạng 4G/Wifi, Service Worker ngầm lập tức đẩy toàn bộ các phiếu tồn đọng lên máy chủ một cách an toàn mà không bị mất dữ liệu.", "Tự động đồng bộ (Auto-Sync): ")
+    add_h1("IV. CƠ CHẾ LƯU TRỮ NGOẠI TUYẾN KHI MẤT SÓNG DI ĐỘNG")
+    add_body("Tại các vị trí khảo sát không có sóng mạng 4G (khu vực ngầm hoặc tầng hầm), hệ thống kích hoạt cơ chế lưu trữ tạm thời (Offline-First):")
+    add_dash_item("Dữ liệu phiếu khảo sát và chuỗi dữ liệu ảnh đã qua xử lý được lưu trữ an toàn trong bộ nhớ cục bộ (IndexedDB) của thiết bị.", "Lưu tạm trên thiết bị: ")
+    add_dash_item("Ứng dụng thông báo trạng thái 'Đã lưu tạm trên thiết bị'. Khảo sát viên có thể tiếp tục công việc tại các điểm tiếp theo mà không bị gián đoạn.", "Duy trì khảo sát: ")
+    add_dash_item("Khi thiết bị nhận lại tín hiệu mạng, hệ thống tự động đồng bộ ngầm các dữ liệu đã lưu lên máy chủ mà không đòi hỏi thao tác gửi lại.", "Tự động đồng bộ: ")
 
     # -------------------------------------------------------------
-    # PHẦN V: CẤU TRÚC GÓI TIN DỮ LIỆU (PAYLOAD SCHEMA)
+    # PHẦN V: ĐẶC TẢ CẤU TRÚC GÓI DỮ LIỆU
     # -------------------------------------------------------------
-    add_h1("V. CẤU TRÚC GÓI TIN DỮ LIỆU HOÀN CHỈNH (PAYLOAD SCHEMA)")
-    add_body("Dữ liệu sau khi kết thúc Bước 1 và Bước 2 được đóng gói thành một đối tượng JSON chuẩn mực sẵn sàng gửi lên Server:")
+    add_h1("V. ĐẶC TẢ CẤU TRÚC GÓI DỮ LIỆU HOÀN CHỈNH (PAYLOAD SCHEMA)")
+    add_body("Sau khi hoàn tất Bước 1 và Bước 2, dữ liệu được tổng hợp thành đối tượng chuẩn dạng JSON để truyền về máy chủ:")
 
     add_code_block(
         "{\n"
@@ -399,12 +413,12 @@ def create_step1_2_docx():
         "}"
     )
 
-    add_callout("Nhờ gói tin này: Khi lưu lên Server ở Bước 3, Server chỉ việc bóc tách chuỗi data_base64 để ghi thẳng thành file ảnh vật lý với đúng tên file_name vào thư mục photos/S1/. Khi làm báo cáo, script Python chỉ việc gọi đúng tên file để chèn vào Word mà không cần lọc dữ liệu!", "KẾT NỐI VỚI BƯỚC TIẾP THEO")
+    add_callout("Gói dữ liệu này cho phép máy chủ tách chuỗi ảnh ghi trực tiếp vào thư mục photos/S1/ với đúng tên định danh. Khi sinh báo cáo tự động, chương trình chỉ cần đối chiếu tên tệp để chèn ảnh vào văn bản mà không phải qua khâu lọc dữ liệu trung gian.", "KẾT NỐI VỚI HỆ THỐNG MÁY CHỦ")
 
-    # Lưu tài liệu Word
+    # Lưu tệp Word
     output_path = r"d:\gis_connect\HUONG_DAN_CHI_TIET_XU_LY_BUOC_1_VA_2.docx"
     doc.save(output_path)
-    print("SUCCESS: File Word chi tiet Buoc 1 va 2 da duoc tao tai: " + output_path)
+    print("SUCCESS: File Word Buoc 1 va 2 (Tone Nau Be) da duoc tao tai: " + output_path)
 
 if __name__ == '__main__':
     create_step1_2_docx()
